@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "startmenuwidget.h"
 #include <QPushButton>
+#include <QBoxLayout>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),start_menu{new StartMenuWidget()}
 {
@@ -10,6 +11,11 @@ MainWindow::MainWindow(QWidget *parent)
         start_menu->gif->stop();
         game_widget = new GameWidget;
         setCentralWidget(game_widget);
+        dock_menu = new QDockWidget();
+        dock_menu->setFloating(false);
+        dock_menu->setAllowedAreas(Qt::BottomDockWidgetArea);
+        QBoxLayout* dock_layout = new QBoxLayout(QBoxLayout::LeftToRight);
+        
     });
     connect(start_menu->exit_button,&QPushButton::pressed,this,[this]{close();});
 

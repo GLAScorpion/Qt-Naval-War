@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QButtonGroup>
+#include "hoverpushbutton.h"
 constexpr int kMatSize = 12;
 class GameWidget : public QWidget
 {
@@ -11,7 +12,7 @@ class GameWidget : public QWidget
 public:
     explicit GameWidget(QWidget *parent = nullptr);
 private:
-    QPushButton* matrix[kMatSize][kMatSize];
+    HoverPushButton* matrix[kMatSize][kMatSize];
     QButtonGroup* buttons;
 signals:
 
