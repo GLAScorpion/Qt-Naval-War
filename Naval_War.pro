@@ -13,12 +13,14 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     hoverpushbutton.cpp \
+    dockwidget.cpp \
     startmenuwidget.cpp
 
 HEADERS += \
     gamewidget.h \
     mainwindow.h \
     hoverpushbutton.h \
+    dockwidget.h \
     startmenuwidget.h
 
 # Default rules for deployment.

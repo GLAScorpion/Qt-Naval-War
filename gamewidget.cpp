@@ -15,10 +15,9 @@ GameWidget::GameWidget(QWidget *parent)
             matrix[i][j]->setFixedSize(QSize(50,50));
             buttons->addButton(matrix[i][j]);
             grid_layout->addWidget(matrix[i][j],i,j,Qt::AlignCenter);
-            /*
-            connect(matrix[i][j],&HoverPushButton::onEnter,this,[=]{matrix[i][j]->setIcon(QIcon("nuke.png"));});
-            connect(matrix[i][j],&HoverPushButton::onLeave,this,[=]{matrix[i][j]->setIcon(QIcon());});
-            */
+            //connect(matrix[i][j],&HoverPushButton::onEnter,this,[=]{matrix[i][j]->setIcon(QIcon("nuke.png"));});
+            //connect(matrix[i][j],&HoverPushButton::onLeave,this,[=]{matrix[i][j]->setIcon(QIcon());});
+        
         }
     }
     buttons->setExclusive(true);
