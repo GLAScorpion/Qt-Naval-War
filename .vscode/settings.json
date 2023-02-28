@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "qsizepolicy": "cpp",
+        "qdockwidget": "cpp"
+    }
+}

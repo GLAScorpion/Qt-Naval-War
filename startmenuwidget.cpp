@@ -31,6 +31,7 @@ StartMenuWidget::StartMenuWidget(QWidget *parent)
     exit_button = new QPushButton(QIcon("pGAY.png"),"Escile");
     exit_button->setIconSize(QSize(100,100));
     main_layout->addWidget(exit_button);
+    main_layout->setSizeConstraint(QLayout::SetFixedSize);
 }
 
 

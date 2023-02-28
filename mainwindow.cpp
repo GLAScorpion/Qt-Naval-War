@@ -3,9 +3,11 @@
 #include <QPushButton>
 #include "dockwidget.h"
 #include <QDockWidget>
+#include <QSizePolicy>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),start_menu{new StartMenuWidget()}
 {
+    //setSizePolicy(QSizePolicy::Policy::Fixed,QSizePolicy::Policy::Fixed);
     setCentralWidget(start_menu);
     setWindowIcon(QIcon("AMOGUS.png"));
     connect(start_menu->start_game_button,&QPushButton::pressed,this,[=]{
