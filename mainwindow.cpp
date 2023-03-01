@@ -4,6 +4,7 @@
 #include "dockwidget.h"
 #include <QDockWidget>
 #include <QSizePolicy>
+#include "hoverpushbutton.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),start_menu{new StartMenuWidget()}
 {
@@ -33,6 +34,7 @@ void MainWindow::sonar_set(){
     game_widget->boat_width_hover = 1;
 }
 void MainWindow::rotate(){
+    
     int tmp = game_widget->boat_higth_hover;
     game_widget->boat_higth_hover = game_widget->boat_width_hover;
     game_widget->boat_width_hover = tmp;
