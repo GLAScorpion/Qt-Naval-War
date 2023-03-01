@@ -17,7 +17,32 @@ GameWidget::GameWidget(QWidget *parent)
             grid_layout->addWidget(matrix[i][j],i,j,Qt::AlignCenter);
             connect(matrix[i][j],&HoverPushButton::onEnter,this, &GameWidget::hover_enter);
             connect(matrix[i][j],&HoverPushButton::onLeave,this, &GameWidget::hover_leave);
-            //connect(matrix[i][j], &HoverPushButton::pressed_forwarding, this, &GameWidget::boat_set);
+            connect(matrix[i][j], &HoverPushButton::pressed, this, [=]{
+                for(int k = 0; k < boat_higth_hover; k++){
+                    for(int q = 0; q < boat_width_hover; q++){
+                        if(i+k < kMatSize && j+q < kMatSize){
+                            disconnect(matrix[i+k][j+q], &HoverPushButton::onEnter, this, &GameWidget::hover_enter);
+                            disconnect(matrix[i+k][j+q], &HoverPushButton::onLeave, this, &GameWidget::hover_leave);
+                            matrix[i+k][j+q]->set_icon_changable(false);
+                        }
+                        if(i+k < kMatSize && j-q >= 0){
+                            disconnect(matrix[i+k][j-q], &HoverPushButton::onEnter, this, &GameWidget::hover_enter);
+                            disconnect(matrix[i+k][j-q], &HoverPushButton::onLeave, this, &GameWidget::hover_leave);
+                            matrix[i+k][j-q]->set_icon_changable(false);
+                        }
+                        if(i-k >= 0 && j+q < kMatSize){
+                            disconnect(matrix[i-k][j+q], &HoverPushButton::onLeave, this, &GameWidget::hover_enter);
+                            disconnect(matrix[i-k][j+q], &HoverPushButton::onEnter, this, &GameWidget::hover_leave);
+                            matrix[i-k][j+q]->set_icon_changable(false);
+                        }
+                        if(i-k >= 0 && j-q >= 0){
+                            disconnect(matrix[i-k][j-q], &HoverPushButton::onEnter, this, &GameWidget::hover_enter);
+                            disconnect(matrix[i-k][j-q], &HoverPushButton::onLeave, this, &GameWidget::hover_leave);
+                            matrix[i-k][j-q]->set_icon_changable(false);
+                        } 
+                    }
+                }            
+            });
         }
     }
     buttons->setExclusive(true);
@@ -49,6 +74,7 @@ void GameWidget::hover_leave(int i, int j){
     }
 }
 
+//doesn't work because of parameters i, j cannot be passed with a pressed signal
 void GameWidget::boat_set(int i, int j){
     for(int k = 0; k < boat_higth_hover; k++){
         for(int q = 0; q < boat_width_hover; q++){
