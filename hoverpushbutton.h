@@ -8,8 +8,11 @@ class HoverPushButton : public QPushButton
 private:
     const int i;
     const int j;
+    bool change_icon;
 public:
     HoverPushButton(int i, int j):QPushButton(),i{i},j{j}{setMouseTracking(true);}
+    bool icon_changable() const {return change_icon;}
+    void set_icon_changable(bool change){change_icon = change;}
 
     //~HoverPushButton();
 protected:

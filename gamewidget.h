@@ -11,6 +11,9 @@ class GameWidget : public QWidget
     Q_OBJECT
 public:
     explicit GameWidget(QWidget *parent = nullptr);
+    QIcon boat_icon_hover;
+    int boat_higth_hover;
+    int boat_width_hover;
 private:
     HoverPushButton* matrix[kMatSize][kMatSize];
     QButtonGroup* buttons;
