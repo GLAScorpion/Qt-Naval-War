@@ -18,9 +18,12 @@ public:
 protected:
     virtual void enterEvent(QEvent* event);
     virtual void leaveEvent(QEvent* event);
+    void keyPressEvent(QKeyEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
 public: Q_SIGNALS:
     void onEnter(int i, int j);
     void onLeave(int i, int j);
+    void pressed(int i, int j);
 };
 
 #endif
