@@ -20,6 +20,12 @@ private:
     StartMenuWidget* start_menu;
     QDockWidget* dock_menu;
     DockWidget* dock_widget;
-    
+
+public slots:
+    void battleship_set();
+    void support_set();
+    void sonar_set();
+    void game_prep();
+
 };
 #endif // MAINWINDOW_H

@@ -10,7 +10,7 @@ private:
     const int j;
     bool change_icon;
 public:
-    HoverPushButton(int i, int j):QPushButton(),i{i},j{j}{setMouseTracking(true);}
+    HoverPushButton(int i, int j):QPushButton(), i{i}, j{j}, change_icon{true}{setMouseTracking(true);}
     bool icon_changable() const {return change_icon;}
     void set_icon_changable(bool change){change_icon = change;}
 
@@ -19,8 +19,8 @@ protected:
     virtual void enterEvent(QEvent* event);
     virtual void leaveEvent(QEvent* event);
 public: Q_SIGNALS:
-    void onEnter();
-    void onLeave();
+    void onEnter(int i, int j);
+    void onLeave(int i, int j);
 };
 
 #endif

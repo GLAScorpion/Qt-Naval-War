@@ -18,7 +18,10 @@ private:
     HoverPushButton* matrix[kMatSize][kMatSize];
     QButtonGroup* buttons;
 signals:
-
+public slots:
+    void hover_enter(int i, int j);
+    void hover_leave(int i, int j);
+    void boat_set(int i, int j);
 };
 
 #endif // GAMEWIDGET_H
