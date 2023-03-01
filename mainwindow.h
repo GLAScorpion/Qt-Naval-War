@@ -26,6 +26,7 @@ public slots:
     void support_set();
     void sonar_set();
     void game_prep();
+    void rotate();
 
 };
 #endif // MAINWINDOW_H

@@ -11,8 +11,8 @@ GameWidget::GameWidget(QWidget *parent)
             matrix[i][j]->setStyleSheet("QPushButton{background-color:blue;border: 0.5px solid black} QPushButton::checked,QPushButton::hover{background-color:rgb(66, 126, 245)}");
             //matrix[i][j]->setIcon(QIcon("nuke.png"));
             matrix[i][j]->setCheckable(true);
-            matrix[i][j]->setIconSize(QSize(50,50));
-            matrix[i][j]->setFixedSize(QSize(50,50));
+            matrix[i][j]->setIconSize(QSize(kCellPixelSize,kCellPixelSize));
+            matrix[i][j]->setFixedSize(QSize(kCellPixelSize,kCellPixelSize));
             buttons->addButton(matrix[i][j]);
             grid_layout->addWidget(matrix[i][j],i,j,Qt::AlignCenter);
             connect(matrix[i][j],&HoverPushButton::onEnter,this, &GameWidget::hover_enter);
