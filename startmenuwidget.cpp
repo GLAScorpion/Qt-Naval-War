@@ -14,7 +14,7 @@ StartMenuWidget::StartMenuWidget(QWidget *parent)
     setLayout(main_layout);
     QFrame* image_frame = new QFrame;
     QLabel* image_label = new QLabel;
-    QPixmap pix = QPixmap("119.jpg");
+    QPixmap pix = QPixmap("mariscalatore.png");
     image_label->setPixmap(pix);
     QVBoxLayout* image_layout = new QVBoxLayout;
     image_layout->addWidget(image_label);
