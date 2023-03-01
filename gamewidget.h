@@ -6,6 +6,7 @@
 #include <QButtonGroup>
 #include "hoverpushbutton.h"
 constexpr int kMatSize = 12;
+constexpr int kCellPixelSize = 50;
 class GameWidget : public QWidget
 {
     Q_OBJECT

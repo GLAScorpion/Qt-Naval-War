@@ -11,7 +11,7 @@ private:
     std::vector<QPushButton*> control_buttons{3};
     QButtonGroup* boat_button_group;
 public:
-    DockWidget(QWidget *parent = nullptr);
+    DockWidget(int w, QWidget *parent = nullptr);
     //~dockwidget();
 };
 
