@@ -1,5 +1,5 @@
-#include "../include/gamewidget.h"
-#include "../include/hoverpushbutton.h"
+#include "../../include/GUI/gamewidget.h"
+#include "../../include/GUI/hoverpushbutton.h"
 #include <QGridLayout>
 GameWidget::GameWidget(QWidget *parent)
     : QWidget{parent},buttons{new QButtonGroup}

@@ -1,4 +1,4 @@
-#include "../include/startmenuwidget.h"
+#include "../../include/GUI/startmenuwidget.h"
 #include <QVBoxLayout>
 #include <QPixmap>
 #include <QPushButton>

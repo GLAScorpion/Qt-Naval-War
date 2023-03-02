@@ -1,4 +1,4 @@
-#include "../include/dockwidget.h"
+#include "../../include/GUI/dockwidget.h"
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QSize>
