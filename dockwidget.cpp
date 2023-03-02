@@ -2,7 +2,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QSize>
-DockWidget::DockWidget(int w, QWidget *parent)
+DockWidget::DockWidget(int w,QPushButton* rotate_button, QWidget *parent)
 :QWidget(parent)
 {
     QHBoxLayout* dock_layout = new QHBoxLayout();
@@ -20,8 +20,7 @@ DockWidget::DockWidget(int w, QWidget *parent)
     boat_button_group->setExclusive(true);
     QVBoxLayout* control_buttons_layout = new QVBoxLayout();
     control_buttons[0] = new QPushButton("Delete");
-    control_buttons[1] = new QPushButton("Rotate");
-    //control_buttons[Rotate]->setShortcut(Qt::Key_R);
+    control_buttons[1] = rotate_button;
     control_buttons[2] = new QPushButton("Next");
     foreach (QPushButton* b, control_buttons) control_buttons_layout->addWidget(b);
     //boat_buttons_layout->setSizeConstraint(QLayout::SetFixedSize);

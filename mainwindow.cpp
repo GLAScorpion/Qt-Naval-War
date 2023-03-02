@@ -33,23 +33,17 @@ void MainWindow::sonar_set(){
     game_widget->boat_higth_hover = 1;
     game_widget->boat_width_hover = 1;
 }
-void MainWindow::rotate(){
-    
-    int tmp = game_widget->boat_higth_hover;
-    game_widget->boat_higth_hover = game_widget->boat_width_hover;
-    game_widget->boat_width_hover = tmp;
-}
+
 void MainWindow::game_prep(){
     start_menu->gif->stop();
     game_widget = new GameWidget;
     setCentralWidget(game_widget);
     dock_menu = new QDockWidget();
     dock_menu->setFeatures(QDockWidget::NoDockWidgetFeatures);
-    dock_widget = new DockWidget(kCellPixelSize * kMatSize);
+    dock_widget = new DockWidget(kCellPixelSize * kMatSize,game_widget->rotate_button);
     dock_menu->setWidget(dock_widget);
     addDockWidget(Qt::BottomDockWidgetArea,dock_menu);
     connect(dock_widget->dock_boat_buttons[Battleship], &QPushButton::pressed, this, &MainWindow::battleship_set);
     connect(dock_widget->dock_boat_buttons[Support], &QPushButton::pressed, this, &MainWindow::support_set);
     connect(dock_widget->dock_boat_buttons[Sonar], &QPushButton::pressed, this, &MainWindow::sonar_set);
-    connect(dock_widget->control_buttons[Rotate],&QPushButton::pressed,this,&MainWindow::rotate);
 }
