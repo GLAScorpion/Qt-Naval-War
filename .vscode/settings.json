@@ -6,6 +6,7 @@
         "qmovie": "cpp",
         "qapplication": "cpp",
         "qgridlayout": "cpp",
-        "qpushbutton": "cpp"
+        "qpushbutton": "cpp",
+        "string": "cpp"
     }
 }
