@@ -1,14 +1,13 @@
-#include "mainwindow.h"
-#include "startmenuwidget.h"
+#include "../include/mainwindow.h"
+#include "../include/startmenuwidget.h"
+#include "../include/dockwidget.h"
+#include "../include/hoverpushbutton.h"
 #include <QPushButton>
-#include "dockwidget.h"
 #include <QDockWidget>
 #include <QSizePolicy>
-#include "hoverpushbutton.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),start_menu{new StartMenuWidget()}
 {
-    //setSizePolicy(QSizePolicy::Policy::Fixed,QSizePolicy::Policy::Fixed);
     setCentralWidget(start_menu);
     setWindowIcon(QIcon("AMOGUS.png"));
     connect(start_menu->start_game_button,&QPushButton::pressed,this, &MainWindow::game_prep);
@@ -45,7 +44,7 @@ void MainWindow::game_prep(){
     setCentralWidget(game_widget);
     dock_menu = new QDockWidget();
     dock_menu->setFeatures(QDockWidget::NoDockWidgetFeatures);
-    dock_widget = new DockWidget(kCellPixelSize * kMatSize+12);
+    dock_widget = new DockWidget(kCellPixelSize * kMatSize + kMatSize);
     dock_menu->setWidget(dock_widget);
     addDockWidget(Qt::BottomDockWidgetArea,dock_menu);
     connect(dock_widget->dock_boat_buttons[Battleship], &QPushButton::pressed, this, &MainWindow::battleship_set);

@@ -1,12 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
-#include <QDockWidget>
-#include <vector>
 #include "startmenuwidget.h"
 #include "gamewidget.h"
 #include "dockwidget.h"
+#include <QMainWindow>
+#include <QDockWidget>
+#include <vector>
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -26,6 +26,6 @@ public slots:
     void support_set();
     void sonar_set();
     void game_prep();
-
+    void rotate();
 };
 #endif // MAINWINDOW_H
