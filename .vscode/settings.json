@@ -4,6 +4,8 @@
         "qdockwidget": "cpp",
         "qlabel": "cpp",
         "qmovie": "cpp",
-        "qapplication": "cpp"
+        "qapplication": "cpp",
+        "qgridlayout": "cpp",
+        "qpushbutton": "cpp"
     }
 }

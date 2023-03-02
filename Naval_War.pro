@@ -10,21 +10,22 @@ CONFIG += c++17
 MOC_DIR = tmp
 OBJECTS_DIR = tmp
 SOURCES += \
-    main.cpp \
-    src/gamewidget.cpp \
-    src/mainwindow.cpp \
-    src/hoverpushbutton.cpp \
-    src/dockwidget.cpp \
-    src/gamegrid.cpp \
-    src/startmenuwidget.cpp
+    src/executable/main.cpp \
+    src/GUI/gamewidget.cpp \
+    src/GUI/mainwindow.cpp \
+    src/GUI/hoverpushbutton.cpp \
+    src/GUI/dockwidget.cpp \
+    src/GUI/startmenuwidget.cpp \
+    src/game_dynamics/gamegrid.cpp 
+    
 
 HEADERS += \
-    include/gamewidget.h \
-    include/mainwindow.h \
-    include/hoverpushbutton.h \
-    include/dockwidget.h \
-    include/gamegrid.h \
-    include/startmenuwidget.h
+    include/GUI/gamewidget.h \
+    include/GUI/mainwindow.h \
+    include/GUI/hoverpushbutton.h \
+    include/GUI/dockwidget.h \
+    include/GUI/startmenuwidget.h \
+    include/game_dynamics/gamegrid.h 
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

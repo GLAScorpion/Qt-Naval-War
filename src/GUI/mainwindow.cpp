@@ -1,7 +1,7 @@
-#include "../include/mainwindow.h"
-#include "../include/startmenuwidget.h"
-#include "../include/dockwidget.h"
-#include "../include/hoverpushbutton.h"
+#include "../../include/GUI/mainwindow.h"
+#include "../../include/GUI/startmenuwidget.h"
+#include "../../include/GUI/dockwidget.h"
+#include "../../include/GUI/hoverpushbutton.h"
 #include <QPushButton>
 #include <QDockWidget>
 #include <QSizePolicy>
