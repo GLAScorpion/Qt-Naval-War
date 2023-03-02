@@ -1,6 +1,9 @@
 {
     "files.associations": {
         "qsizepolicy": "cpp",
-        "qdockwidget": "cpp"
+        "qdockwidget": "cpp",
+        "qlabel": "cpp",
+        "qmovie": "cpp",
+        "qapplication": "cpp"
     }
 }

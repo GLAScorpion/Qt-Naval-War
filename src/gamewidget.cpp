@@ -1,5 +1,5 @@
-#include "gamewidget.h"
-#include "hoverpushbutton.h"
+#include "../include/gamewidget.h"
+#include "../include/hoverpushbutton.h"
 #include <QGridLayout>
 GameWidget::GameWidget(QWidget *parent)
     : QWidget{parent},buttons{new QButtonGroup}
@@ -9,7 +9,6 @@ GameWidget::GameWidget(QWidget *parent)
         for(int j = 0; j < kMatSize; j++){
             matrix[i][j] = new HoverPushButton(i,j);
             matrix[i][j]->setStyleSheet("QPushButton{background-color:blue;border: 0.5px solid black} QPushButton::checked,QPushButton::hover{background-color:rgb(66, 126, 245)}");
-            //matrix[i][j]->setIcon(QIcon("nuke.png"));
             matrix[i][j]->setCheckable(true);
             matrix[i][j]->setIconSize(QSize(kCellPixelSize,kCellPixelSize));
             matrix[i][j]->setFixedSize(QSize(kCellPixelSize,kCellPixelSize));
@@ -50,7 +49,6 @@ void GameWidget::hover_leave(int i, int j){
     }
 }
 
-//doesn't work because of parameters i, j cannot be passed with a pressed signal
 void GameWidget::boat_set(int i, int j){
     for(int k = 0; k < boat_height_hover; k++){
         for(int q = 0; q < boat_width_hover; q++){
