@@ -2,20 +2,9 @@
 #include "hoverpushbutton.h"
 #include <QGridLayout>
 GameWidget::GameWidget(QWidget *parent)
-    : QWidget{parent},buttons{new QButtonGroup},rotate_button{new QPushButton("Rotate")}
+    : QWidget{parent},buttons{new QButtonGroup}
 {
-    rotate_button->setShortcut(Qt::Key_R);
-    connect(rotate_button,&QPushButton::pressed,this,[=]{
-        if(track_i != -1) {
-            int tmp_i = track_i;
-            hover_leave(track_i,track_j);
-            track_i = tmp_i;
-        }
-        int tmp = boat_higth_hover;
-        boat_higth_hover = boat_width_hover;
-        boat_width_hover = tmp;
-        if(track_i != -1) hover_enter(track_i,track_j);
-    });
+    
     QGridLayout* grid_layout = new QGridLayout;
     for(int i = 0; i < kMatSize; i++){
         for(int j = 0; j < kMatSize; j++){
@@ -37,6 +26,21 @@ GameWidget::GameWidget(QWidget *parent)
     grid_layout->setVerticalSpacing(0);
     grid_layout->setSizeConstraint(QLayout::SetFixedSize);
     setLayout(grid_layout);
+}
+
+void GameWidget::setRotateButton(QPushButton* button){
+    rotate_button = button;
+    connect(rotate_button,&QPushButton::pressed,this,[=]{
+        if(track_i != -1) {
+            int tmp_i = track_i;
+            hover_leave(track_i,track_j);
+            track_i = tmp_i;
+        }
+        int tmp = boat_higth_hover;
+        boat_higth_hover = boat_width_hover;
+        boat_width_hover = tmp;
+        if(track_i != -1) hover_enter(track_i,track_j);
+    });
 }
 
 void GameWidget::hover_enter(int i, int j){

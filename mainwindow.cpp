@@ -40,7 +40,9 @@ void MainWindow::game_prep(){
     setCentralWidget(game_widget);
     dock_menu = new QDockWidget();
     dock_menu->setFeatures(QDockWidget::NoDockWidgetFeatures);
-    dock_widget = new DockWidget(kCellPixelSize * kMatSize,game_widget->rotate_button);
+    dock_widget = new DockWidget(kCellPixelSize * kMatSize);
+    game_widget->setRotateButton(dock_widget->control_buttons[Rotate]);
+    dock_widget->control_buttons[Rotate]->setShortcut(Qt::Key_R);
     dock_menu->setWidget(dock_widget);
     addDockWidget(Qt::BottomDockWidgetArea,dock_menu);
     connect(dock_widget->dock_boat_buttons[Battleship], &QPushButton::pressed, this, &MainWindow::battleship_set);
