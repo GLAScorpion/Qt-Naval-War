@@ -24,7 +24,7 @@ public: Q_SIGNALS:
     void onEnter(int i, int j);
     void onLeave(int i, int j);
     void pressed(int i, int j);
-    void pressed_R_key(int i, int j);
+    void pressed_key_r();
 };
 
 #endif
