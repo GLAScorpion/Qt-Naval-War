@@ -9,10 +9,12 @@ class BoatPart;
 class GameGrid;
 class Boat{
     public:
+        BoatPart* operator[](int i){return boat_parts_[i].get();}
         virtual bool action (int i, int j, GameGrid* attacker, GameGrid* defender) = 0;
         int dimension(){return boat_parts_.size();};
+        std::string symbol(){return symbol_;}
     protected:
-        Boat();
+        Boat(int size);
     private:
 
         std::string symbol_;
