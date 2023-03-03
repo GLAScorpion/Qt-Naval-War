@@ -39,7 +39,7 @@ void MainWindow::rotate(){
     game_widget->boat_width_hover = tmp;
 }
 void MainWindow::game_prep(){
-    start_menu->gif->stop();
+    foreach(QMovie* gif, start_menu->gifs_) gif->stop();
     game_widget = new GameWidget;
     setCentralWidget(game_widget);
     dock_menu = new QDockWidget();
