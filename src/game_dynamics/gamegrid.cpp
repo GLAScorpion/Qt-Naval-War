@@ -8,11 +8,26 @@ GameGrid::GameGrid(){
         for (size_t j = 0; j < kGridSize; j++)
         {
             grid[i][j] = nullptr;
-        }
-        
+            attack_grid_[i][j] = Water;
+        }   
     }
-    
 }
+
+void GameGrid::deleteBoat(BoatPart* part){
+    Boat* boat = part->masterBoat();
+    Coord origin = boat->center();
+    for(int i = 0; i < (1 + boat->dimension()/2);i++){
+        if(boat->isVertical()){
+            grid[origin.i() + i][origin.j()] = nullptr;
+            grid[origin.i() - i][origin.j()] = nullptr;
+        }else{
+            grid[origin.i()][origin.j() + i] = nullptr;
+            grid[origin.i()][origin.j() - i] = nullptr;
+        }
+    }
+    delete boat;
+}
+
 bool GameGrid::validBoatCoordinates(Coord begin, Coord end){
     bool isVertical = begin.i() != end.i();
     int fixed_val, index, size;
@@ -70,4 +85,25 @@ bool GameGrid::setBoat(Coord begin, Coord end, Boat* boat){
 
 bool GameGrid::move(Coord origin, Coord dest){
     Boat* boat = grid[origin.i()][origin.j()]->masterBoat();
+    int radius = boat->dimension()/2;
+    Coord begin;
+    Coord end;
+    if(boat->isVertical()){
+        begin = Coord(dest.i() - radius,dest.j());
+        end = Coord(dest.i() + radius,dest.j());
+    }else{
+        begin = Coord(dest.i(),dest.j() - radius);
+        end = Coord(dest.i(),dest.j() + radius);
+    }
+    if(!validBoatCoordinates(begin,end)) return false;
+    for(int i = 0; i < (1 + radius);i++){
+        if(boat->isVertical()){
+            grid[origin.i() + i][origin.j()] = nullptr;
+            grid[origin.i() - i][origin.j()] = nullptr;
+        }else{
+            grid[origin.i()][origin.j() + i] = nullptr;
+            grid[origin.i()][origin.j() - i] = nullptr;
+        }
+    }
+    return setBoat(begin , end, boat);
 }

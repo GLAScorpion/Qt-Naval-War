@@ -17,6 +17,7 @@ class Boat{
         void setCenter(Coord center){center_ = center;}
         void setVertical(bool vert = true){is_vertical_ = vert;}
         bool isVertical(){return is_vertical_;}
+        Coord center(){return center_;}
         virtual void heal();
         bool isBroken();
     protected:
