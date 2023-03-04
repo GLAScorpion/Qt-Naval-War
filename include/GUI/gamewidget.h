@@ -12,17 +12,20 @@ class GameWidget : public QWidget
     Q_OBJECT
 public:
     explicit GameWidget(QWidget *parent = nullptr);
+    HoverPushButton* getCheckedButton(){return dynamic_cast<HoverPushButton*>(buttons->checkedButton());}
+    HoverPushButton* getButton(int i, int j){return matrix[i][j];}
+    void setIconCell(int i, int j, QIcon icon = QIcon());
     QIcon boat_icon_hover;
     int boat_height_hover;
     int boat_width_hover;
 private:
+    bool preview_mode = true;
     HoverPushButton* matrix[kMatSize][kMatSize];
     QButtonGroup* buttons;
 signals:
 public slots:
     void hover_enter(int i, int j);
     void hover_leave(int i, int j);
-    void boat_set(int i, int j);
     void rotate();
 };
 

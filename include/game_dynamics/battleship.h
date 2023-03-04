@@ -12,11 +12,11 @@ class Battleship : public Boat{
         bool action (Coord target, GameGrid* attacker, GameGrid* defender) override{
             BoatPart* enemy_boat = defender->getBoatPart(target);
             if(!enemy_boat){
-                attacker->setAttackGridCell(target,Miss);
+                attacker->setAttackGridCell(target,AttackGridStatus::Miss);
                 return true;
             }
             enemy_boat->setArmor(false);
-            attacker->setAttackGridCell(target,Hit);
+            attacker->setAttackGridCell(target,AttackGridStatus::Hit);
             if (enemy_boat->masterBoat()->isBroken()) defender->deleteBoat(enemy_boat);
             return true;
         }

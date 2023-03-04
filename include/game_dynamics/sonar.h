@@ -22,12 +22,12 @@ class Sonar : public Boat{
                     BoatPart* target_ptr = attacker->getBoatPart(target);
                     if(target_ptr){
                         if(target_ptr->armor()){
-                            attacker->setAttackGridCell(target,Detection);
+                            attacker->setAttackGridCell(target,AttackGridStatus::Detection);
                         }else{
-                            attacker->setAttackGridCell(target,Hit);
+                            attacker->setAttackGridCell(target,AttackGridStatus::Hit);
                         }
                     }else{
-                        attacker->setAttackGridCell(target,Water);
+                        attacker->setAttackGridCell(target,AttackGridStatus::Water);
                     }
                     target.j_pp();
                 }

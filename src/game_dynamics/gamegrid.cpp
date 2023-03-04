@@ -2,21 +2,26 @@
 #include "../../include/game_dynamics/coordinates.h"
 #include "../../include/game_dynamics/boat.h"
 #include "../../include/game_dynamics/boatpart.h"
+#include <iostream>
+
 GameGrid::GameGrid(){
     for (size_t i = 0; i < kGridSize; i++)
     {
         for (size_t j = 0; j < kGridSize; j++)
         {
             grid[i][j] = nullptr;
-            attack_grid_[i][j] = Water;
+            attack_grid_[i][j] = (int)AttackGridStatus::Water;
         }   
     }
 }
 
-void GameGrid::deleteBoat(BoatPart* part){
+std::vector<Coord> GameGrid::deleteBoat(BoatPart* part){
     Boat* boat = part->masterBoat();
     Coord origin = boat->center();
-    for(int i = 0; i < (1 + boat->dimension()/2);i++){
+    int range = boat->dimension()/2;
+    std::vector<Coord> output;
+    for(int i = 0; i < (1 + range);i++){
+
         if(boat->isVertical()){
             grid[origin.i() + i][origin.j()] = nullptr;
             grid[origin.i() - i][origin.j()] = nullptr;
@@ -25,7 +30,16 @@ void GameGrid::deleteBoat(BoatPart* part){
             grid[origin.i()][origin.j() - i] = nullptr;
         }
     }
+    if(boat->isVertical()) {
+        output.push_back(Coord(origin.i() - range, origin.j()));
+        output.push_back(Coord(origin.i() + range, origin.j()));
+    }else{
+        output.push_back(Coord(origin.i(), origin.j() - range));
+        output.push_back(Coord(origin.i(), origin.j() + range));
+    }
+    //std::cerr<<output[0].i()<<" "<<output[0].j()<<" "<<output[1].i()<<" "<<output[1].j()<<std::endl;
     delete boat;
+    return output;
 }
 
 bool GameGrid::validBoatCoordinates(Coord begin, Coord end){
@@ -106,4 +120,16 @@ bool GameGrid::move(Coord origin, Coord dest){
         }
     }
     return setBoat(begin , end, boat);
+}
+
+std::string GameGrid::print(){
+    std::string out;
+    for(int i = 0; i < kGridSize;i++){
+        for(int j = 0; j < kGridSize; j++){
+            if(grid[i][j]) out += 'X';
+            else out += 'w';
+        }
+        out += '\n';
+    }
+    return out;
 }

@@ -19,5 +19,6 @@ bool Boat::isBroken(){
 Boat::Boat(int size){
     for(int i = 0; i < size; i++) {
         boat_parts_.push_back(std::unique_ptr<BoatPart>{new BoatPart});
+        boat_parts_[i]->setMaster(this);
     }
 }

@@ -1,6 +1,7 @@
 #if !defined(COORDINATES_H)
 #define COORDINATES_H
 //constexpr int kValidCoord = 11;
+#include <iostream>
 class Coord{
 
     public:
@@ -15,9 +16,15 @@ class Coord{
         void j_pp(){j_++;}
         void i_mm(){i_--;}
         void j_mm(){j_--;}
+        friend std::ostream& operator<<( std::ostream& os, Coord c){
+            os<<c.i()<<" "<<c.j();
+            return os;
+        }
     private:
         int i_;//ROWS
         int j_;//COLUMNS
 };
+
+
 
 #endif // COORDINATES_H
