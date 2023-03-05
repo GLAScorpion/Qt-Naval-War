@@ -20,6 +20,7 @@ class GameWrapper : public QObject{
         int current_player_ = 0;
 
     signals:
+        void setup_phase_ended();
     public slots:
         void delete_boat(int i, int j);
         void set_boat(int i, int j);

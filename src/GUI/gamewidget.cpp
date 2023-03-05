@@ -14,7 +14,6 @@ GameWidget::GameWidget(QWidget *parent)
             matrix[i][j]->setFixedSize(QSize(kCellPixelSize,kCellPixelSize));
             buttons->addButton(matrix[i][j]);
             grid_layout->addWidget(matrix[i][j],i,j,Qt::AlignCenter);
-            //connect(matrix[i][j],&HoverPushButton::pressed_key_r,this,&GameWidget::rotate);
         }
     }
     buttons->setExclusive(true);
