@@ -17,19 +17,19 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 void MainWindow::battleship_set(){
-    game_widget->boat_icon_hover = QIcon("nuke.png");
+    game_widget->boat_icon_hover = QIcon("battleship.jpg");
     game_widget->boat_height_hover = 1;
     game_widget->boat_width_hover = 3;
 }
 
 void MainWindow::support_set(){
-    game_widget->boat_icon_hover = QIcon("AMOGUS.png");
+    game_widget->boat_icon_hover = QIcon("support.jpg");
     game_widget->boat_height_hover = 1;
     game_widget->boat_width_hover = 2;
 }
 
 void MainWindow::sonar_set(){
-    game_widget->boat_icon_hover = QIcon("119.jpg");
+    game_widget->boat_icon_hover = QIcon("radar.jpg");
     game_widget->boat_height_hover = 1;
     game_widget->boat_width_hover = 1;
 }

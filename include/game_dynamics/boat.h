@@ -13,7 +13,7 @@ class Boat{
         BoatPart* at(int i){return boat_parts_[i].get();}
         virtual bool action (Coord target, GameGrid* attacker, GameGrid* defender) = 0;
         int dimension(){return boat_parts_.size();};
-        std::string symbol(){return symbol_;}
+        std::string& symbol(bool armor);
         void setCenter(Coord center){center_ = center;}
         void setVertical(bool vert = true){is_vertical_ = vert;}
         bool isVertical(){return is_vertical_;}
@@ -21,11 +21,12 @@ class Boat{
         virtual void heal();
         bool isBroken();
     protected:
-        Boat(int size);
+        Boat(int size, std::string bSymbol, std::string cSymbol);
     private:
         bool is_vertical_ = false;
         Coord center_;
-        std::string symbol_;
+        std::string symbol_broken;
+        std::string symbol_complete;
         std::vector<std::unique_ptr<BoatPart>> boat_parts_;
 };
 

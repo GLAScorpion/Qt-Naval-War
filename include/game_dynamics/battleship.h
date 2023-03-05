@@ -7,6 +7,9 @@
 #include "boatpart.h"
 
 constexpr int kBattleshipDim = 5;
+const std::string kBrokenBattleship = "battleship_damaged.jpg";
+const std::string kCompleteBattleship = "battleship.jpg";
+
 class Battleship : public Boat{
     public:
         bool action (Coord target, GameGrid* attacker, GameGrid* defender) override{
@@ -20,7 +23,7 @@ class Battleship : public Boat{
             if (enemy_boat->masterBoat()->isBroken()) defender->deleteBoat(enemy_boat);
             return true;
         }
-        Battleship():Boat(kBattleshipDim){};
+        Battleship():Boat(kBattleshipDim,kBrokenBattleship,kCompleteBattleship){};
     private:
 
 };

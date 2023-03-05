@@ -32,6 +32,10 @@ void GameWidget::setIconCell(int i, int j,QIcon icon){
     }
 }
 
+void GameWidget::setLabelCell(int i, int j, QString str){
+    matrix[i][j]->setText(str);
+}
+
 void GameWidget::hover_enter(int i, int j){
     for(int k = 0; k < boat_height_hover; k++){
         for(int q = 0; q < boat_width_hover; q++){

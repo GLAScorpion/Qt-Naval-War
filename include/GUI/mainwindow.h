@@ -18,10 +18,11 @@ public:
     GameWidget* game_widget;
     StartMenuWidget* start_menu;
     SetupDockWidget* dock_widget;
+    QDockWidget* dock_menu;
 
 private:
     GameWrapper* game_wrapper;
-    QDockWidget* dock_menu;
+    
 
 public slots:
     void battleship_set();

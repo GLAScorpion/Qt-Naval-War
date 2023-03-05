@@ -14,7 +14,9 @@ public:
     explicit GameWidget(QWidget *parent = nullptr);
     HoverPushButton* getCheckedButton(){return dynamic_cast<HoverPushButton*>(buttons->checkedButton());}
     HoverPushButton* getButton(int i, int j){return matrix[i][j];}
+    void setPreview(bool state){preview_mode = state;}
     void setIconCell(int i, int j, QIcon icon = QIcon());
+    void setLabelCell(int i, int j, QString str = "");
     QIcon boat_icon_hover;
     int boat_height_hover;
     int boat_width_hover;
