@@ -43,16 +43,17 @@ std::vector<Coord> GameGrid::deleteBoat(BoatPart* part){
 }
 
 bool GameGrid::validBoatCoordinates(Coord begin, Coord end){
+    if(begin.i() < 0 or begin.j() < 0 or end.i() < 0 or end.j() < 0)return false;
     bool isVertical = begin.i() != end.i();
     int fixed_val, index, size;
     if(isVertical){
         fixed_val = begin.j();
         index = begin.i();
-        size = end.i() - begin.i();
+        size = end.i() - begin.i() + 1;
     }else{
         fixed_val = begin.i();
         index = begin.j();
-        size = end.j() - begin.j();
+        size = end.j() - begin.j() + 1;
     }
     for(int i = 0; i < size; i++){
         if(index + i >= kGridSize) return false;

@@ -1,7 +1,5 @@
 #include "../../include/GUI/gamewidget.h"
 #include "../../include/GUI/hoverpushbutton.h"
-#include "../../include/game_dynamics/coordinates.h"
-#include "../../include/game_dynamics/gamewrapper.h"
 #include <QGridLayout>
 GameWidget::GameWidget(QWidget *parent)
     : QWidget{parent},buttons{new QButtonGroup}
@@ -16,10 +14,7 @@ GameWidget::GameWidget(QWidget *parent)
             matrix[i][j]->setFixedSize(QSize(kCellPixelSize,kCellPixelSize));
             buttons->addButton(matrix[i][j]);
             grid_layout->addWidget(matrix[i][j],i,j,Qt::AlignCenter);
-            connect(matrix[i][j],&HoverPushButton::onEnter,this, &GameWidget::hover_enter);
-            connect(matrix[i][j],&HoverPushButton::onLeave,this, &GameWidget::hover_leave);
-            connect(matrix[i][j],&HoverPushButton::pressed_key_r,this,&GameWidget::rotate);
-            //connect(matrix[i][j],&HoverPushButton::pressed_key_d,this,&GameWidget::delete_boat);
+            //connect(matrix[i][j],&HoverPushButton::pressed_key_r,this,&GameWidget::rotate);
         }
     }
     buttons->setExclusive(true);

@@ -21,7 +21,7 @@ StartMenuWidget::StartMenuWidget(QWidget *parent)
     image_frame->setLayout(image_layout);
     main_layout->addWidget(image_frame);
     start_game_button = new QPushButton;
-    gifs_.push_back(new QMovie("blobhang.gif"));
+    gifs_.push_back(new QMovie("SpookyDance.gif"));
     connect(gifs_[0], &QMovie::frameChanged, [=]{start_game_button->setIcon(gifs_[0]->currentPixmap()); });
     gifs_.push_back(new QMovie("RainbowBlobCat.gif"));
     connect(gifs_[1], &QMovie::frameChanged, [=]{exit_button->setIcon(gifs_[1]->currentPixmap()); });

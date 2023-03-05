@@ -18,16 +18,26 @@ GameWrapper::GameWrapper(MainWindow* main_window,QObject *parent)
     connect(main_window->dock_widget->dock_boat_buttons[Middle], &QPushButton::pressed, main_window, &MainWindow::support_set);
     connect(main_window->dock_widget->dock_boat_buttons[First], &QPushButton::pressed, main_window, &MainWindow::sonar_set);
     connect(main_window->dock_widget->control_buttons[Middle],&QPushButton::pressed,main_window,&MainWindow::rotate);
-    connect_matrix();
+    connect(main_window->dock_widget->control_buttons[Last],&QPushButton::pressed,this,&GameWrapper::next_button_setup);
+    connect_matrix(true);
 }
 
-void GameWrapper::connect_matrix(){
+void GameWrapper::connect_matrix(bool force){
     for (size_t i = 0; i < kGridSize; i++)
     {
         for (size_t j = 0; j < kGridSize; j++)
         {
-            connect(main_window->game_widget->getButton(i,j),&HoverPushButton::pressed_key_d,this,&GameWrapper::delete_boat);
-            connect(main_window->game_widget->getButton(i,j), &HoverPushButton::pressed, this, &GameWrapper::set_boat);
+            if(force){
+                connect(main_window->game_widget->getButton(i,j),&HoverPushButton::pressed_key_r,main_window->game_widget,&GameWidget::rotate);
+                connect(main_window->game_widget->getButton(i,j),&HoverPushButton::pressed_key_d,this,&GameWrapper::delete_boat);
+                connect(main_window->game_widget->getButton(i,j), &HoverPushButton::pressed, this, &GameWrapper::set_boat);
+            }
+            if(!main_window->game_widget->getButton(i,j)->icon_changable() or force){
+                main_window->game_widget->setIconCell(i,j);
+                main_window->game_widget->getButton(i,j)->set_icon_changable(true);
+                connect(main_window->game_widget->getButton(i,j),&HoverPushButton::onEnter,main_window->game_widget, &GameWidget::hover_enter);
+                connect(main_window->game_widget->getButton(i,j),&HoverPushButton::onLeave,main_window->game_widget, &GameWidget::hover_leave);
+            }
         }
         
     }
@@ -35,6 +45,7 @@ void GameWrapper::connect_matrix(){
 }
 
 void GameWrapper::delete_boat(int i, int j){
+    main_window->dock_widget->setCommLabel();
     if(!grids_[current_player_].getBoatPart(Coord(i,j))){
         main_window->dock_widget->setCommLabel(kSetupString + " Not a boat. Retry");
         return;
@@ -69,6 +80,8 @@ void GameWrapper::delete_boat(int i, int j){
 }
 
 void GameWrapper::set_boat(int i, int j){
+    main_window->dock_widget->setCommLabel();
+    //std::cerr << "flag "<<current_player_<<std::endl;
     int boat_index = main_window->game_widget->boat_height_hover + main_window->game_widget->boat_width_hover - 2;
     if(main_window->dock_widget->getLabelValue(boat_index) == 0){
         main_window->dock_widget->setCommLabel(kSetupString + " No more boats of this type. Retry");
@@ -92,7 +105,6 @@ void GameWrapper::set_boat(int i, int j){
     }
     Coord begin(i - main_window->game_widget->boat_height_hover + 1, j - main_window->game_widget->boat_width_hover + 1);
     Coord end(i + main_window->game_widget->boat_height_hover - 1, j + main_window->game_widget->boat_width_hover - 1);
-    //std::cerr << begin << " "<< end <<" "<<i <<" "<<j<<std::endl;
     if(!grids_[current_player_].setBoat(begin,end,boat)){
         main_window->dock_widget->setCommLabel(kSetupString + " Can't place it here. Retry");
         return;
@@ -122,5 +134,21 @@ void GameWrapper::set_boat(int i, int j){
         }
     }
     main_window->dock_widget->setLabelValue(main_window->dock_widget->getLabelValue(boat_index) - 1,boat_index);
-    //std::cerr<<grids_[current_player_].print()<<std::endl;
+    //std::cerr << grids_[current_player_].print()<<std::endl;
+}
+
+void GameWrapper::next_button_setup(){
+    for(int i = 0; i < 3; i++){
+        if(main_window->dock_widget->getLabelValue(i) != 0){
+            main_window->dock_widget->setCommLabel(kSetupString + " Place all boats first, please");
+            return;
+        }
+    }
+    current_player_++;
+    if(current_player_ == 2);
+    main_window->dock_widget->setCommLabel();
+    connect_matrix();
+    main_window->dock_widget->setLabelValue(2,First);
+    main_window->dock_widget->setLabelValue(3,Middle);
+    main_window->dock_widget->setLabelValue(3,Last);
 }

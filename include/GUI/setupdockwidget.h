@@ -8,7 +8,7 @@
 #include <vector>
 #include <QString>
 
-const QString kSetupString = "Setup phase";
+const QString kSetupString = "Setup Phase.";
 
 class SetupDockWidget : public QWidget
 {
@@ -19,9 +19,9 @@ private:
     QLabel* comm_label_;
 public:
     SetupDockWidget(int w, QWidget *parent = nullptr);
-    void setLabelValue(int value, int index){dock_labels[index]->setText(QString('0' + value));}
+    void setLabelValue(int value, int index){dock_labels[index]->setNum(value);}
     int getLabelValue(int index){return dock_labels[index]->text().toStdString()[0] - '0';}
-    void setCommLabel(QString string){comm_label_->setText(string);}
+    void setCommLabel(QString string = kSetupString){comm_label_->setText(string);}
 
     std::vector<QPushButton*> dock_boat_buttons{3};
     std::vector<QPushButton*> control_buttons{3};

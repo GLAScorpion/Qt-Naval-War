@@ -5,7 +5,7 @@
 #include <iostream>
 
 SetupDockWidget::SetupDockWidget(int w, QWidget *parent)
-:QWidget(parent),comm_label_{new QLabel("Setup Phase")}
+:QWidget(parent),comm_label_{new QLabel(kSetupString)}
 {
     QHBoxLayout* dock_layout = new QHBoxLayout();
     QHBoxLayout* boat_buttons_layout = new QHBoxLayout();

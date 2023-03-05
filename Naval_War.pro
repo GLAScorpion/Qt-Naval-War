@@ -18,7 +18,6 @@ SOURCES += \
     src/GUI/startmenuwidget.cpp \
     src/game_dynamics/gamegrid.cpp \
     src/game_dynamics/boat.cpp \
-    src/game_dynamics/boatpart.cpp \
     src/game_dynamics/gamewrapper.cpp 
     
 
