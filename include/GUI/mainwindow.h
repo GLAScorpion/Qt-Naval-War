@@ -3,23 +3,25 @@
 
 #include "startmenuwidget.h"
 #include "gamewidget.h"
-#include "dockwidget.h"
+#include "setupdockwidget.h"
 #include <QMainWindow>
 #include <QDockWidget>
 #include <vector>
+
+class GameWrapper;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
     MainWindow(QWidget *parent = nullptr);
-
-
-private:
     GameWidget* game_widget;
     StartMenuWidget* start_menu;
     QDockWidget* dock_menu;
-    DockWidget* dock_widget;
+    SetupDockWidget* dock_widget;
+
+private:
+    GameWrapper* game_wrapper;
 
 public slots:
     void battleship_set();
@@ -27,5 +29,6 @@ public slots:
     void sonar_set();
     void game_prep();
     void rotate();
+    void delete_boat();
 };
 #endif // MAINWINDOW_H

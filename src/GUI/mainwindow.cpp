@@ -1,7 +1,8 @@
 #include "../../include/GUI/mainwindow.h"
 #include "../../include/GUI/startmenuwidget.h"
-#include "../../include/GUI/dockwidget.h"
+#include "../../include/GUI/setupdockwidget.h"
 #include "../../include/GUI/hoverpushbutton.h"
+#include "../../include/game_dynamics/gamewrapper.h"
 #include <QPushButton>
 #include <QDockWidget>
 #include <QSizePolicy>
@@ -39,16 +40,18 @@ void MainWindow::rotate(){
     game_widget->boat_width_hover = tmp;
 }
 void MainWindow::game_prep(){
-    start_menu->gif->stop();
+    foreach(QMovie* gif, start_menu->gifs_) gif->stop();
     game_widget = new GameWidget;
     setCentralWidget(game_widget);
     dock_menu = new QDockWidget();
     dock_menu->setFeatures(QDockWidget::NoDockWidgetFeatures);
-    dock_widget = new DockWidget(kCellPixelSize * kMatSize + kMatSize);
+    dock_widget = new SetupDockWidget(kCellPixelSize * kMatSize + kMatSize);
     dock_menu->setWidget(dock_widget);
     addDockWidget(Qt::BottomDockWidgetArea,dock_menu);
-    connect(dock_widget->dock_boat_buttons[Battleship], &QPushButton::pressed, this, &MainWindow::battleship_set);
-    connect(dock_widget->dock_boat_buttons[Support], &QPushButton::pressed, this, &MainWindow::support_set);
-    connect(dock_widget->dock_boat_buttons[Sonar], &QPushButton::pressed, this, &MainWindow::sonar_set);
-    connect(dock_widget->control_buttons[Rotate],&QPushButton::pressed,this,&MainWindow::rotate);
+    game_wrapper = new GameWrapper(this,nullptr);
+}
+
+void MainWindow::delete_boat(){
+    HoverPushButton* button = game_widget->getCheckedButton();
+    game_wrapper->delete_boat(button->i,button->j);
 }

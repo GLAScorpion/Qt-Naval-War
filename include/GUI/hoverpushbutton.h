@@ -6,10 +6,10 @@ class HoverPushButton : public QPushButton
 {
     Q_OBJECT
 private:
-    const int i;
-    const int j;
     bool change_icon;
 public:
+    const int i;
+    const int j;
     HoverPushButton(int i, int j):QPushButton(), i{i}, j{j}, change_icon{true}{setMouseTracking(true);}
     bool icon_changable() const {return change_icon;}
     void set_icon_changable(bool change){change_icon = change;}
@@ -25,6 +25,7 @@ public: Q_SIGNALS:
     void onLeave(int i, int j);
     void pressed(int i, int j);
     void pressed_key_r();
+    void pressed_key_d(int i, int j);
 };
 
 #endif

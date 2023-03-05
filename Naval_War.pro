@@ -14,18 +14,27 @@ SOURCES += \
     src/GUI/gamewidget.cpp \
     src/GUI/mainwindow.cpp \
     src/GUI/hoverpushbutton.cpp \
-    src/GUI/dockwidget.cpp \
+    src/GUI/setupdockwidget.cpp \
     src/GUI/startmenuwidget.cpp \
-    src/game_dynamics/gamegrid.cpp 
+    src/game_dynamics/gamegrid.cpp \
+    src/game_dynamics/boat.cpp \
+    src/game_dynamics/gamewrapper.cpp 
     
 
 HEADERS += \
     include/GUI/gamewidget.h \
     include/GUI/mainwindow.h \
     include/GUI/hoverpushbutton.h \
-    include/GUI/dockwidget.h \
+    include/GUI/setupdockwidget.h \
     include/GUI/startmenuwidget.h \
-    include/game_dynamics/gamegrid.h 
+    include/game_dynamics/gamegrid.h \
+    include/game_dynamics/boat.h \
+    include/game_dynamics/boatpart.h \
+    include/game_dynamics/coordinates.h \
+    include/game_dynamics/gamewrapper.h \
+    include/game_dynamics/battleship.h \
+    include/game_dynamics/sonar.h \
+    include/game_dynamics/support.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

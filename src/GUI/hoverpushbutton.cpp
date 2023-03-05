@@ -20,6 +20,9 @@ void HoverPushButton::keyPressEvent(QKeyEvent *event){
         emit pressed_key_r();
         emit onEnter(i,j);
         break;
+    case Qt::Key_D:
+        emit pressed_key_d(i,j);
+        break;
     default:
         QPushButton::keyPressEvent(event);
         break;

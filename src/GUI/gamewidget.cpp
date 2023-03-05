@@ -14,10 +14,7 @@ GameWidget::GameWidget(QWidget *parent)
             matrix[i][j]->setFixedSize(QSize(kCellPixelSize,kCellPixelSize));
             buttons->addButton(matrix[i][j]);
             grid_layout->addWidget(matrix[i][j],i,j,Qt::AlignCenter);
-            connect(matrix[i][j],&HoverPushButton::onEnter,this, &GameWidget::hover_enter);
-            connect(matrix[i][j],&HoverPushButton::onLeave,this, &GameWidget::hover_leave);
-            connect(matrix[i][j], &HoverPushButton::pressed, this, &GameWidget::boat_set);
-            connect(matrix[i][j],&HoverPushButton::pressed_key_r,this,&GameWidget::rotate);
+            //connect(matrix[i][j],&HoverPushButton::pressed_key_r,this,&GameWidget::rotate);
         }
     }
     buttons->setExclusive(true);
@@ -25,6 +22,15 @@ GameWidget::GameWidget(QWidget *parent)
     grid_layout->setVerticalSpacing(0);
     grid_layout->setSizeConstraint(QLayout::SetFixedSize);
     setLayout(grid_layout);
+}
+
+void GameWidget::setIconCell(int i, int j,QIcon icon){
+    matrix[i][j]->setIcon(icon);
+    matrix[i][j]->set_icon_changable(true);
+    if(preview_mode){
+        connect(matrix[i][j],&HoverPushButton::onEnter,this, &GameWidget::hover_enter);
+        connect(matrix[i][j],&HoverPushButton::onLeave,this, &GameWidget::hover_leave);
+    }
 }
 
 void GameWidget::hover_enter(int i, int j){
@@ -49,39 +55,9 @@ void GameWidget::hover_leave(int i, int j){
     }
 }
 
-void GameWidget::boat_set(int i, int j){
-    for(int k = 0; k < boat_height_hover; k++){
-        for(int q = 0; q < boat_width_hover; q++){
-            if(i+k < kMatSize && j+q < kMatSize){
-                disconnect(matrix[i+k][j+q], &HoverPushButton::onEnter, this, &GameWidget::hover_enter);
-                disconnect(matrix[i+k][j+q], &HoverPushButton::onLeave, this, &GameWidget::hover_leave);
-                disconnect(matrix[i+k][j+q], &HoverPushButton::pressed, this, &GameWidget::boat_set);
-                matrix[i+k][j+q]->set_icon_changable(false);
-            }
-            if(i+k < kMatSize && j-q >= 0){
-                disconnect(matrix[i+k][j-q], &HoverPushButton::onEnter, this, &GameWidget::hover_enter);
-                disconnect(matrix[i+k][j-q], &HoverPushButton::onLeave, this, &GameWidget::hover_leave);
-                disconnect(matrix[i+k][j-q], &HoverPushButton::pressed, this, &GameWidget::boat_set);
-                matrix[i+k][j-q]->set_icon_changable(false);
-            }
-            if(i-k >= 0 && j+q < kMatSize){
-                disconnect(matrix[i-k][j+q], &HoverPushButton::onEnter, this, &GameWidget::hover_enter);
-                disconnect(matrix[i-k][j+q], &HoverPushButton::onLeave, this, &GameWidget::hover_leave);
-                disconnect(matrix[i-k][j+q], &HoverPushButton::pressed, this, &GameWidget::boat_set);
-                matrix[i-k][j+q]->set_icon_changable(false);
-            }
-            if(i-k >= 0 && j-q >= 0){
-                disconnect(matrix[i-k][j-q], &HoverPushButton::onEnter, this, &GameWidget::hover_enter);
-                disconnect(matrix[i-k][j-q], &HoverPushButton::onLeave, this, &GameWidget::hover_leave);
-                disconnect(matrix[i-k][j-q], &HoverPushButton::pressed, this, &GameWidget::boat_set);
-                matrix[i-k][j-q]->set_icon_changable(false);
-            } 
-        }
-    }
-}
-
 void GameWidget::rotate(){
     int tmp = boat_height_hover;
     boat_height_hover = boat_width_hover;
     boat_width_hover = tmp;
 }
+
