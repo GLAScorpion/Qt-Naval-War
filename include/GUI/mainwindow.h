@@ -17,11 +17,12 @@ public:
     MainWindow(QWidget *parent = nullptr);
     GameWidget* game_widget;
     StartMenuWidget* start_menu;
-    QDockWidget* dock_menu;
     SetupDockWidget* dock_widget;
+    QDockWidget* dock_menu;
 
 private:
     GameWrapper* game_wrapper;
+    
 
 public slots:
     void battleship_set();

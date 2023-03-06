@@ -44,6 +44,28 @@ void GameWrapper::connect_matrix(bool force){
     
 }
 
+void GameWrapper::disconnect_all(){
+    main_window->game_widget->setPreview(false);
+    disconnect(main_window->dock_widget->dock_boat_buttons[Last], &QPushButton::pressed, main_window, &MainWindow::battleship_set);
+    disconnect(main_window->dock_widget->dock_boat_buttons[Middle], &QPushButton::pressed, main_window, &MainWindow::support_set);
+    disconnect(main_window->dock_widget->dock_boat_buttons[First], &QPushButton::pressed, main_window, &MainWindow::sonar_set);
+    disconnect(main_window->dock_widget->control_buttons[Middle],&QPushButton::pressed,main_window,&MainWindow::rotate);
+    disconnect(main_window->dock_widget->control_buttons[Last],&QPushButton::pressed,this,&GameWrapper::next_button_setup);
+    for (size_t i = 0; i < kGridSize; i++)
+    {
+        for (size_t j = 0; j < kGridSize; j++)
+        {
+            main_window->game_widget->setIconCell(i,j);
+            main_window->game_widget->getButton(i,j)->set_icon_changable(false);
+            disconnect(main_window->game_widget->getButton(i,j),&HoverPushButton::pressed_key_r,main_window->game_widget,&GameWidget::rotate);
+            disconnect(main_window->game_widget->getButton(i,j),&HoverPushButton::pressed_key_d,this,&GameWrapper::delete_boat);
+            disconnect(main_window->game_widget->getButton(i,j),&HoverPushButton::pressed, this, &GameWrapper::set_boat);
+            disconnect(main_window->game_widget->getButton(i,j),&HoverPushButton::onEnter,main_window->game_widget, &GameWidget::hover_enter);
+            disconnect(main_window->game_widget->getButton(i,j),&HoverPushButton::onLeave,main_window->game_widget, &GameWidget::hover_leave);
+        }
+    }
+}
+
 void GameWrapper::delete_boat(int i, int j){
     main_window->dock_widget->setCommLabel();
     if(!grids_[current_player_].getBoatPart(Coord(i,j))){
@@ -81,7 +103,6 @@ void GameWrapper::delete_boat(int i, int j){
 
 void GameWrapper::set_boat(int i, int j){
     main_window->dock_widget->setCommLabel();
-    //std::cerr << "flag "<<current_player_<<std::endl;
     int boat_index = main_window->game_widget->boat_height_hover + main_window->game_widget->boat_width_hover - 2;
     if(main_window->dock_widget->getLabelValue(boat_index) == 0){
         main_window->dock_widget->setCommLabel(kSetupString + " No more boats of this type. Retry");
@@ -134,21 +155,77 @@ void GameWrapper::set_boat(int i, int j){
         }
     }
     main_window->dock_widget->setLabelValue(main_window->dock_widget->getLabelValue(boat_index) - 1,boat_index);
-    //std::cerr << grids_[current_player_].print()<<std::endl;
 }
 
 void GameWrapper::next_button_setup(){
+    current_player_++;
+    if(current_player_ == 2){
+        current_player_ = 0; 
+        game_mode_prep();
+        return;
+    }
     for(int i = 0; i < 3; i++){
         if(main_window->dock_widget->getLabelValue(i) != 0){
             main_window->dock_widget->setCommLabel(kSetupString + " Place all boats first, please");
             return;
         }
     }
-    current_player_++;
-    if(current_player_ == 2);
     main_window->dock_widget->setCommLabel();
     connect_matrix();
     main_window->dock_widget->setLabelValue(2,First);
     main_window->dock_widget->setLabelValue(3,Middle);
     main_window->dock_widget->setLabelValue(3,Last);
+}
+
+void GameWrapper::game_mode_prep(){
+    disconnect_all();
+    game_dock_widget = new GameDockWidget(kCellPixelSize * kMatSize + kMatSize);
+    main_window->dock_menu->setWidget(game_dock_widget);
+    game_dock_widget->setCommLabel(kGameString + QString('0' + current_player_));
+    connect(game_dock_widget->buttons_[First],&QPushButton::pressed,this,&GameWrapper::switch_grid);
+    for(int i = 0; i < 3; i++) game_dock_widget->setLabelValue(grids_[current_player_].getBoatNum(i),i);
+    load_grid();
+}
+
+void GameWrapper::load_grid(){
+    for (size_t i = 0; i < kGridSize; i++)
+    {
+        for (size_t j = 0; j < kGridSize; j++)
+        {
+            //std::cerr <<"flaggg\n";
+            main_window->game_widget->setLabelCell(i,j);
+            if(displayDefense){
+                if(grids_[current_player_].getBoatPart(Coord(i,j))){
+                    QIcon* icon = new QIcon(QString::fromUtf8(grids_[current_player_].getBoatPart(Coord(i,j))->symbol().c_str()));
+                       
+                    main_window->game_widget->setIconCell(i,j,*icon);
+                }else{
+                    main_window->game_widget->setIconCell(i,j);
+                }
+            }else{
+                main_window->game_widget->setIconCell(i,j);
+                switch (grids_[current_player_].getAttackGridCell(i,j))
+                {
+                case AttackGridStatus::Detection :
+                    main_window->game_widget->setLabelCell(i,j,"Y");
+                    break;
+                case AttackGridStatus::Hit:
+                    main_window->game_widget->setLabelCell(i,j,"X");
+                    break;
+                case AttackGridStatus::Miss:
+                    main_window->game_widget->setLabelCell(i,j,"O");
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+        
+    }
+    
+}
+
+void GameWrapper::switch_grid(){
+    displayDefense = !displayDefense;
+    load_grid();
 }

@@ -8,6 +8,8 @@
 
 constexpr int kSonarDim = 1;
 constexpr int kSonarRange = 5;
+const std::string kBrokenSonar = "radar_damaged.jpg";
+const std::string kCompleteSonar = "radar.jpg";
 class Sonar : public Boat{
     public:
         bool action (Coord target, GameGrid* attacker, GameGrid* defender) override{
@@ -36,7 +38,7 @@ class Sonar : public Boat{
             }
             return true;
         }
-        Sonar():Boat(kSonarDim){}
+        Sonar():Boat(kSonarDim,kBrokenSonar,kCompleteSonar){}
 };
 
 #endif // SONAR_H

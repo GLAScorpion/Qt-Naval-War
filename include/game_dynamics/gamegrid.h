@@ -22,7 +22,10 @@ class GameGrid{
         bool move(Coord origin, Coord dest);
         void setAttackGridCell(Coord pos, AttackGridStatus status){attack_grid_[pos.i()][pos.j()] = (int)status;}
         std::string print();
+        AttackGridStatus getAttackGridCell(int i, int j){return AttackGridStatus(attack_grid_[i][j]);}
+        int& getBoatNum(int index){return boats_[index];}
     private:
+        std::vector<int> boats_ = {2 , 3 ,3};
         BoatPart* grid[kGridSize][kGridSize];
         int attack_grid_[kGridSize][kGridSize];
         //std::vector<std::unique_ptr<Boat>> boats_;

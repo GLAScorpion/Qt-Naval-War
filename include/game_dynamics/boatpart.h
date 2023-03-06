@@ -1,6 +1,6 @@
 #if !defined(BOATPART_H)
 #define BOATPART_H
-class Boat;
+#include "boat.h"
 class BoatPart{
     public:
         BoatPart():armor_{true}{}
@@ -8,6 +8,9 @@ class BoatPart{
         bool armor(){return armor_;}
         void setArmor(bool armor){armor_ = armor;}
         Boat* masterBoat(){return master_boat_;}
+        std::string& symbol(){
+            return master_boat_->symbol(armor_);
+        }
     private:
         bool armor_;
         Boat* master_boat_;

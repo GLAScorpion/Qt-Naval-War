@@ -11,6 +11,7 @@ MOC_DIR = tmp
 OBJECTS_DIR = tmp
 SOURCES += \
     src/executable/main.cpp \
+    src/GUI/gamedockwidget.cpp \
     src/GUI/gamewidget.cpp \
     src/GUI/mainwindow.cpp \
     src/GUI/hoverpushbutton.cpp \
@@ -22,6 +23,7 @@ SOURCES += \
     
 
 HEADERS += \
+    include/GUI/gamedockwidget.h \
     include/GUI/gamewidget.h \
     include/GUI/mainwindow.h \
     include/GUI/hoverpushbutton.h \

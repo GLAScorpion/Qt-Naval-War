@@ -8,6 +8,9 @@
 
 constexpr int kSupportDim = 3;
 constexpr int kSupportRange = 3;
+const std::string kBrokenSupport = "support_damaged.jpg";
+const std::string kCompleteSupport = "support.jpg";
+
 class Support : public Boat{
     public:
         bool action (Coord target, GameGrid* attacker, GameGrid* defender) override{
@@ -27,7 +30,7 @@ class Support : public Boat{
             return true;
         }
         void heal() override{};
-        Support():Boat(kSupportDim){}
+        Support():Boat(kSupportDim,kBrokenSupport,kCompleteSupport){}
 
 };
 

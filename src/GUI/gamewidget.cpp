@@ -14,7 +14,6 @@ GameWidget::GameWidget(QWidget *parent)
             matrix[i][j]->setFixedSize(QSize(kCellPixelSize,kCellPixelSize));
             buttons->addButton(matrix[i][j]);
             grid_layout->addWidget(matrix[i][j],i,j,Qt::AlignCenter);
-            //connect(matrix[i][j],&HoverPushButton::pressed_key_r,this,&GameWidget::rotate);
         }
     }
     buttons->setExclusive(true);
@@ -31,6 +30,10 @@ void GameWidget::setIconCell(int i, int j,QIcon icon){
         connect(matrix[i][j],&HoverPushButton::onEnter,this, &GameWidget::hover_enter);
         connect(matrix[i][j],&HoverPushButton::onLeave,this, &GameWidget::hover_leave);
     }
+}
+
+void GameWidget::setLabelCell(int i, int j, QString str){
+    matrix[i][j]->setText(str);
 }
 
 void GameWidget::hover_enter(int i, int j){
