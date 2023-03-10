@@ -11,6 +11,7 @@ class GameWidget : public QWidget
 {
     Q_OBJECT
 public:
+    void checkDummy(){dummy_bt_->setChecked(true);}
     explicit GameWidget(QWidget *parent = nullptr);
     HoverPushButton* getCheckedButton(){return dynamic_cast<HoverPushButton*>(buttons->checkedButton());}
     HoverPushButton* getButton(int i, int j){return matrix[i][j];}
@@ -20,10 +21,11 @@ public:
     QIcon boat_icon_hover;
     int boat_height_hover;
     int boat_width_hover;
+    QButtonGroup* buttons;
 private:
+    QPushButton* dummy_bt_;
     bool preview_mode = true;
     HoverPushButton* matrix[kMatSize][kMatSize];
-    QButtonGroup* buttons;
 signals:
 public slots:
     void hover_enter(int i, int j);

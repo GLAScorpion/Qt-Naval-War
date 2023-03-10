@@ -102,6 +102,7 @@ void GameWrapper::delete_boat(int i, int j){
 }
 
 void GameWrapper::set_boat(int i, int j){
+    if(!main_window->game_widget->boat_height_hover or !main_window->game_widget->boat_width_hover) return;
     main_window->dock_widget->setCommLabel();
     int boat_index = main_window->game_widget->boat_height_hover + main_window->game_widget->boat_width_hover - 2;
     if(main_window->dock_widget->getLabelValue(boat_index) == 0){
@@ -158,17 +159,18 @@ void GameWrapper::set_boat(int i, int j){
 }
 
 void GameWrapper::next_button_setup(){
-    current_player_++;
-    if(current_player_ == 2){
-        current_player_ = 0; 
-        game_mode_prep();
-        return;
-    }
     for(int i = 0; i < 3; i++){
         if(main_window->dock_widget->getLabelValue(i) != 0){
             main_window->dock_widget->setCommLabel(kSetupString + " Place all boats first, please");
             return;
         }
+    }
+    current_player_++;
+    main_window->game_widget->checkDummy();
+    if(current_player_ == 2){
+        current_player_ = 0; 
+        game_mode_prep();
+        return;
     }
     main_window->dock_widget->setCommLabel();
     connect_matrix();
@@ -183,6 +185,8 @@ void GameWrapper::game_mode_prep(){
     main_window->dock_menu->setWidget(game_dock_widget);
     game_dock_widget->setCommLabel(kGameString + QString('0' + current_player_));
     connect(game_dock_widget->buttons_[First],&QPushButton::pressed,this,&GameWrapper::switch_grid);
+    connect(main_window->game_widget->buttons, &QButtonGroup::idPressed,this,&GameWrapper::bt_select);
+    connect(game_dock_widget->buttons_[Middle], &QPushButton::pressed, this,&GameWrapper::next_button_game_mode);
     for(int i = 0; i < 3; i++) game_dock_widget->setLabelValue(grids_[current_player_].getBoatNum(i),i);
     load_grid();
 }
@@ -192,16 +196,15 @@ void GameWrapper::load_grid(){
     {
         for (size_t j = 0; j < kGridSize; j++)
         {
-            //std::cerr <<"flaggg\n";
             main_window->game_widget->setLabelCell(i,j);
             if(displayDefense){
                 if(grids_[current_player_].getBoatPart(Coord(i,j))){
-                    QIcon* icon = new QIcon(QString::fromUtf8(grids_[current_player_].getBoatPart(Coord(i,j))->symbol().c_str()));
-                       
-                    main_window->game_widget->setIconCell(i,j,*icon);
+                    QIcon icon = QIcon(QString::fromStdString(grids_[current_player_].getBoatPart(Coord(i,j))->symbol()));
+                    main_window->game_widget->setIconCell(i,j,icon);
                 }else{
                     main_window->game_widget->setIconCell(i,j);
                 }
+                //main_window->game_widget->getButton(i,j)->setIconSize(QSize(40,40));
             }else{
                 main_window->game_widget->setIconCell(i,j);
                 switch (grids_[current_player_].getAttackGridCell(i,j))
@@ -227,5 +230,37 @@ void GameWrapper::load_grid(){
 
 void GameWrapper::switch_grid(){
     displayDefense = !displayDefense;
+    main_window->game_widget->checkDummy();
     load_grid();
+}
+
+void GameWrapper::bt_select(int id){
+    game_dock_widget->setCommLabel(kGameString + QString('0' + current_player_));
+    int i = id / kMatSize;
+    int j = id % kMatSize;
+    if(i < 0 or j < 0) return;
+    player_boat_select[boat_choice] = Coord(i,j);
+}
+
+void GameWrapper::next_button_game_mode(){
+    if(!boat_choice){
+        main_window->game_widget->checkDummy();
+        if(!grids_[current_player_].getBoatPart(player_boat_select[0])){
+            game_dock_widget->setCommLabel(kGameString + QString('0' + current_player_) + ". Choose an actual boat, terun");
+            return;
+        }else{
+            boat_choice = true;
+        }
+    }else{
+        main_window->game_widget->checkDummy();
+        if(grids_[current_player_].getBoatPart(player_boat_select[0])->masterBoat()->action(player_boat_select[1],&grids_[current_player_],&grids_[(current_player_ + 1)%2])){
+            boat_choice = false;
+            current_player_ = (current_player_ + 1)%2;
+            displayDefense = true;
+            load_grid();
+        }else{
+            game_dock_widget->setCommLabel(kGameString + QString('0' + current_player_) + ". Choose a valid destination, terun");
+            return;
+        }
+    }
 }

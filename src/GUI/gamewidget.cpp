@@ -10,12 +10,15 @@ GameWidget::GameWidget(QWidget *parent)
             matrix[i][j] = new HoverPushButton(i,j);
             matrix[i][j]->setStyleSheet("QPushButton{background-color:blue;border: 0.5px solid black} QPushButton::checked,QPushButton::hover{background-color:rgb(66, 126, 245)}");
             matrix[i][j]->setCheckable(true);
-            matrix[i][j]->setIconSize(QSize(kCellPixelSize,kCellPixelSize));
+            matrix[i][j]->setIconSize(QSize(kCellPixelSize - 10,kCellPixelSize - 10));
             matrix[i][j]->setFixedSize(QSize(kCellPixelSize,kCellPixelSize));
-            buttons->addButton(matrix[i][j]);
+            buttons->addButton(matrix[i][j], i * kMatSize + j);
             grid_layout->addWidget(matrix[i][j],i,j,Qt::AlignCenter);
         }
     }
+    dummy_bt_ = new QPushButton;
+    dummy_bt_->setCheckable(true);
+    buttons->addButton(dummy_bt_);
     buttons->setExclusive(true);
     grid_layout->setHorizontalSpacing(0);
     grid_layout->setVerticalSpacing(0);
