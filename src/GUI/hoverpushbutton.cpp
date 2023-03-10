@@ -31,5 +31,5 @@ void HoverPushButton::keyPressEvent(QKeyEvent *event){
 
 void HoverPushButton::mousePressEvent(QMouseEvent *event){
     emit pressed(i,j);
-    QPushButton::QWidget::mousePressEvent(event);
+    QPushButton::mousePressEvent(event);
 }

@@ -21,7 +21,7 @@ class Sonar : public Boat{
             int save_j = target.j();
             for(int i = 0; i < kSonarRange; i++ ){
                 for(int j = 0; j < kSonarRange; j++){
-                    BoatPart* target_ptr = attacker->getBoatPart(target);
+                    BoatPart* target_ptr = defender->getBoatPart(target);
                     if(target_ptr){
                         if(target_ptr->armor()){
                             attacker->setAttackGridCell(target,AttackGridStatus::Detection);

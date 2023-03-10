@@ -10,7 +10,7 @@ private:
 public:
     const int i;
     const int j;
-    HoverPushButton(int i, int j):QPushButton(), i{i}, j{j}, change_icon{true}{setMouseTracking(true);}
+    HoverPushButton(int i, int j):QPushButton(),change_icon{true}, i{i}, j{j}{setMouseTracking(true);}
     bool icon_changable() const {return change_icon;}
     void set_icon_changable(bool change){change_icon = change;}
 
